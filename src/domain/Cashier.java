@@ -1,11 +1,16 @@
+package domain;
+
 public class Cashier {
 
     private int money;
     private int time;
     private int remainFuelMoney;
     private int totalRentMoney;
+    private int age;
+    private String name;
+    private String product;
 
-    public Cashier(){
+    public Cashier() {
         this.remainFuelMoney = 0;
         this.totalRentMoney = 0;
     }
@@ -26,6 +31,12 @@ public class Cashier {
         this.totalRentMoney = totalRentMoney;
     }
 
+    public void setAge(int age) { this.age = age; }
+
+    public void setName(String name) { this.name = name; }
+
+    public void setProduct(String product) { this.product = product; }
+
     public int getTotalRentMoney() { return totalRentMoney; }
 
     public int getRemainFuelMoney() { return remainFuelMoney; }
@@ -33,6 +44,12 @@ public class Cashier {
     public int getMoney() { return money; }
 
     public int getTime() { return time; }
+
+    public int getAge() { return age; }
+
+    public String getName() { return name; }
+
+    public String getProduct() { return product; }
 
     public void checkMoney() {
         System.out.println("총 " + getTime() + "시간을 대여하셨습니다.");
@@ -74,5 +91,13 @@ public class Cashier {
 
         return 1;
 
+    }
+
+    public void show() {
+        System.out.println("대여자 정보");
+        System.out.println("대여자 이름 : " + getName());
+        System.out.println("대여자 연령 : " + getAge());
+        System.out.println("대여 시간 : " + getTime());
+        System.out.println("대여 제품 : " + getProduct());
     }
 }

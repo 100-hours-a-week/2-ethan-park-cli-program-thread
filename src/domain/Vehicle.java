@@ -1,12 +1,14 @@
-public class Vehicle {
+package domain;
+
+public class Vehicle{
 
     private final int Max = 100;
 
     private int fuel;   //현재 연료
     private int priceFuel;  //연료 리터당 가격
-    private int useFuel;    //동작 시 연료 사용량
+    private int useFuel;    //동작 시 연료 사용
 
-    public Vehicle() {    }
+    public Vehicle() { }
 
     public Vehicle(int priceFuel, int useFuel){
         this.fuel = 100;
@@ -26,21 +28,11 @@ public class Vehicle {
 
     public void goMove() {
         System.out.println("앞으로 이동합니다.");
-        if (getPriceFuel() != 0) {
-            setFuel(getFuel()-getUseFuel());
-            System.out.println("연료(배터리)가 " + getUseFuel() + "만큼 감소 했습니다.");
-            System.out.println("현재 연료(배터리) : " + getFuel());
-        }
     }
 
     //뒤로 이동
     public void backMove() {
         System.out.println("뒤로 이동합니다.");
-        if (getPriceFuel() != 0) {
-            setFuel(getFuel()-getUseFuel());
-            System.out.println("연료(배터리)가 " + getUseFuel() + "만큼 감소 했습니다.");
-            System.out.println("현재 연료(배터리) : " + getFuel());
-        }
     }
 
     //주유 전 연료 확인
@@ -76,4 +68,5 @@ public class Vehicle {
         System.out.println("주유(충전) 후 연료(배터리) : " + getFuel());
 
     }
+
 }
