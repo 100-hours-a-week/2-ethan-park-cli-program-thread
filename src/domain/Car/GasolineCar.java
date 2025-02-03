@@ -4,61 +4,78 @@ import domain.Vehicle;
 
 public class GasolineCar extends Vehicle {
 
-    private boolean door;
-
-    public void setDoor(boolean door) {
-        this.door = door;
-    }
+    private boolean startUp = false;
 
     public GasolineCar(){
-        super(1000, 10);
+        super(1000, 10, 10000);
     }
 
-    public GasolineCar(int priceFuel, int useFuel){
-        super(priceFuel, useFuel);
+    public GasolineCar(int priceFuel, int useFuel, int money){
+        super(priceFuel, useFuel, money);
     }
 
-    public boolean getDoor() {
-        return door;
+    public boolean getStartup() {
+        return startUp;
     }
 
     public void goMove() {
-        if(!getDoor()) {
-            System.out.println("앞으로 이동합니다.");
+        if(getStartup()) {
+            System.out.println("\n앞으로 이동합니다.");
             if (getFuel() > 0) {
 
                 setFuel(getFuel()-getUseFuel());
                 System.out.println("연료(배터리)가 " + getUseFuel() + "만큼 감소 했습니다.");
-                System.out.println("현재 연료(배터리) : " + getFuel());
+                System.out.println("현재 연료(배터리) : " + getFuel() + "\n");
             }
             else
                 lackFuel();
         }
         else
-            closedDoor();
+            warning();
     }
 
     //뒤로 이동
     public void backMove() {
-        if(!getDoor()) {
-            System.out.println("뒤로 이동합니다.");
+        if(getStartup()) {
+            System.out.println("\n뒤로 이동합니다.");
             if (getFuel() > 0) {
                 setFuel(getFuel() - getUseFuel());
                 System.out.println("연료(배터리)가 " + getUseFuel() + "만큼 감소 했습니다.");
-                System.out.println("현재 연료(배터리) : " + getFuel());
+                System.out.println("현재 연료(배터리) : " + getFuel() + "\n");
             }
             else
                 lackFuel();
         }
-        closedDoor();
-    }
-
-    public void closedDoor(){
-        System.out.println("문이 열린 상태로는 이동이 불가능합니다.");
+        else
+            warning();
     }
 
     public void lackFuel() {
-        System.out.println("연료가 충분하지 않습니다.");
+        System.out.println("\n연료가 충분하지 않습니다.\n");
+    }
+
+    public void onCar() {
+        if(!getStartup()){
+            System.out.println("\n시동이 켜졌습니다.\n");
+            this.startUp = true;
+        }
+        else{
+            System.out.println("\n이미 시동이 켜졌습니다.\n");
+        }
+    }
+
+    public void offCar() {
+        if(getStartup()){
+            System.out.println("\n시동이 꺼졌습니다.\n");
+            this.startUp = false;
+        }
+        else{
+            System.out.println("\n이미 시동이 꺼졌습니다.\n");
+        }
+    }
+
+    public void warning() {
+        System.out.println("\n시동이 켜진 상태에서 이용해주세요.\n");
     }
 
 }
