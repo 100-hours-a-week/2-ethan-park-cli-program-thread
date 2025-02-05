@@ -2,8 +2,8 @@ package domain;
 
 public class Cashier {
 
-    private int remainFuelMoney;
-    private int totalRentMoney;
+    private int remainFuelMoney;    //추가 주유비
+    private int totalRentMoney;     //총 대여비
     private Customer customer;
 
     public Cashier(Customer customer) { this.customer = customer; }
@@ -20,15 +20,7 @@ public class Cashier {
 
     public int getRemainFuelMoney() { return remainFuelMoney; }
 
-    public void checkMoney(int money) {
-        System.out.println("\n총 " + customer.getTime() + "시간을 대여하셨습니다.");
-        System.out.println("시간 당 " + money + "원 입니다.");
-        setTotalRentMoney(money*customer.getTime());
-        System.out.println("대여 요금은 " + getTotalRentMoney() + "원 입니다.");
-        System.out.println("총 요금은 " + (getTotalRentMoney() + getRemainFuelMoney()) + "원 입니다.\n");
-        System.out.print("지불하실 요금을 입력해주세요 : ");
-    }
-
+    //총 금액 확인
     public void checkMoney(int fuel, int priceFuel, int money) {
         System.out.println("\n총 " + customer.getTime() + "시간을 대여하셨습니다.");
         System.out.println("시간 당 " + money + "원 입니다.");
@@ -46,6 +38,8 @@ public class Cashier {
         System.out.print("지불하실 요금을 입력해주세요 : ");
     }
 
+
+    //사용자가 입력한 금액으로 계산
     public int calculate(int money_rent) {
         if(getTotalRentMoney() + getRemainFuelMoney() > money_rent) {
             System.out.println("\n대여 요금보다 적게 입력하셨습니다.");

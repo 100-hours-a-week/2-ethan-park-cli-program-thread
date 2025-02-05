@@ -7,7 +7,7 @@ public class ElectronicCar extends GasolineCar {
     }
 
     public int autoMove() {
-        if(getStartup()) {
+        if(getEngine()) {
             if(getFuel() > 0) {
                 System.out.println("\n자동 운전을 선택하셨습니다.");
                 System.out.println("배터리가 3만큼 감소합니다.\n");
@@ -25,7 +25,7 @@ public class ElectronicCar extends GasolineCar {
     }
 
     public int autoParking() {
-        if(getStartup()) {
+        if(getEngine()) {
             if(getFuel() > 0) {
                 System.out.println("\n자동 주차를 선택하셨습니다.");
                 System.out.println("배터리가 3만큼 감소합니다.\n");

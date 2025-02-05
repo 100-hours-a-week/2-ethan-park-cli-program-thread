@@ -8,6 +8,7 @@ public class Vehicle{
     private int priceFuel;  //연료 리터당 가격
     private int useFuel;    //동작 시 연료 사용
     private int money;
+    private boolean engine = false;
 
     public Vehicle(int priceFuel, int useFuel, int money){
         this.fuel = 100;
@@ -28,13 +29,68 @@ public class Vehicle{
 
     public int getMoney() { return money; }
 
+    public boolean getEngine() {
+        return engine;
+    }
+
     public void goMove() {
-        System.out.println("\n앞으로 이동합니다.\n");
+        if(getEngine()) {
+            System.out.println("\n앞으로 이동합니다.");
+            if (getFuel() > 0) {
+
+                setFuel(getFuel()-getUseFuel());
+                System.out.println("연료(배터리)가 " + getUseFuel() + "만큼 감소 했습니다.");
+                System.out.println("현재 연료(배터리) : " + getFuel() + "\n");
+            }
+            else
+                lackFuel();
+        }
+        else
+            warning();
     }
 
     //뒤로 이동
     public void backMove() {
-        System.out.println("\n뒤로 이동합니다.\n");
+        if(getEngine()) {
+            System.out.println("\n뒤로 이동합니다.");
+            if (getFuel() > 0) {
+                setFuel(getFuel() - getUseFuel());
+                System.out.println("연료(배터리)가 " + getUseFuel() + "만큼 감소 했습니다.");
+                System.out.println("현재 연료(배터리) : " + getFuel() + "\n");
+            }
+            else
+                lackFuel();
+        }
+        else
+            warning();
+    }
+
+    public void lackFuel() {
+        System.out.println("\n연료가 충분하지 않습니다.\n");
+    }
+
+    public void onEngine() {
+        if(!getEngine()){
+            System.out.println("\n시동이 켜졌습니다.\n");
+            this.engine = true;
+        }
+        else{
+            System.out.println("\n이미 시동이 켜졌습니다.\n");
+        }
+    }
+
+    public void offEngine() {
+        if(getEngine()){
+            System.out.println("\n시동이 꺼졌습니다.\n");
+            this.engine = false;
+        }
+        else{
+            System.out.println("\n이미 시동이 꺼졌습니다.\n");
+        }
+    }
+
+    public void warning() {
+        System.out.println("\n시동이 켜진 상태에서 이용해주세요.\n");
     }
 
     //주유 전 연료 확인

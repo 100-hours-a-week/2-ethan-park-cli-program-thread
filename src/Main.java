@@ -42,16 +42,23 @@ public class Main {
             System.out.println("전기 자전거 : 4");
 
             try{
+                //이동 수단 선택
                 System.out.print("번호 입력 : ");
                 choice_car = Integer.parseInt(br.readLine());
-
+                //다른 선택지 제한
                 if(!(choice_car >= 1 && choice_car <= 4)){
                     System.out.println("\n보기에 있는 선택지를 고르세요.\n");
                     continue;
                 }
 
+                //사용자 나이 입력
                 System.out.print("나이를 입력하세요 : ");
                 age = Integer.parseInt(br.readLine());
+                //10살 미만 제한
+                if(age < 10){
+                    System.out.println("최소 대여 나이는 10살입니다(자전거).");
+                    continue;
+                }
 
                 //20세 미만은 자전거 종류만 대여 가능
                 switch (choice_car) {
@@ -64,18 +71,22 @@ public class Main {
                         }
                 }
 
+                //대여 시간
                 System.out.print("대여 시간을 입력해주세요 : ");
                 time = Integer.parseInt(br.readLine());
 
+                //대여자 이름
                 System.out.print("대여자의 이름을 입력하세요 : ");
                 name = br.readLine();
+
+                //이름 유효성 검사(한글, 영어만 입력)
                 validateString(name);
 
                 break;
 
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) { //parseInt로 정수형 받기 때문에 문자열 입력하면 예외
                 System.out.println("\n잘못된 입력 형식으로 이전 단계로 돌아갑니다.\n");
-            } catch (NotStringException e) {
+            } catch (NotStringException e) {    //이름 입력에서 문자 입력이 안되면 예외
                 System.out.println("\n" + e.getMessage() + "\n");
             }
 
@@ -88,16 +99,16 @@ public class Main {
         Cashier cashier = new Cashier(customer);
 
         if(choice_car == 1)
-            customer.setProduct("가솔린차");
+            customer.setProduct("가솔린차");    //가솔린차 대여하면 손님 정보에 대여 제품 가솔린차로 설정
 
         else if(choice_car == 2)
-            customer.setProduct("전기차");
+            customer.setProduct("전기차");     //전기차 대여하면 손님 정보에 대여 제품 전기차로 설정
 
         else if(choice_car == 3)
-            customer.setProduct("자전거");
+            customer.setProduct("자전거");     //자전거 대여하면 손님 정보에 대여 제품 자전거로 설정
 
         else
-            customer.setProduct("전기자전거");
+            customer.setProduct("전기자전거");  //전기자전거 대여하면 손님 정보에 대여 제품 전기자전거로 설정
 
 
         //행동 선택
@@ -120,10 +131,9 @@ public class Main {
                 try{
                     choice_behavior = Integer.parseInt(br.readLine());
 
-
                     switch (choice_behavior) {
 
-                        //주유
+                        //주유 선택
                         case 0 :
                             if(choice_car == 1) {
                                 if (nomalCar.checkFuel() == 1) {
@@ -137,7 +147,7 @@ public class Main {
                                     electronicCar.chargeFuel(fuel);
                                 }
                             }
-                            else if(choice_car == 3){
+                            else if(choice_car == 3){   //일반 자전거만 주유 불가
                                 System.out.println("일반 자전거는 주유를 하지 못합니다.");
                             }
                             else{
@@ -148,69 +158,89 @@ public class Main {
                             }
                             break;
 
-                            //시동 켜기
+                            //시동 켜기 선택
                         case 1 :
 
                             if(choice_car == 1)
-                                nomalCar.onCar();
+                                nomalCar.onEngine();
+
                             else if(choice_car == 2)
-                                electronicCar.onCar();
-                            else if(choice_car == 3)
+                                electronicCar.onEngine();
+
+                            else if(choice_car == 3)    //일반 자전거만 시동 옵션 불가
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
+
                             else
-                                electronicCircle.onCar();
+                                electronicCircle.onEngine();
+
                             break;
 
                         //시동 끄기
                         case 2 :
                             if(choice_car == 1)
-                                nomalCar.offCar();
+                                nomalCar.offEngine();
+
                             else if(choice_car == 2)
-                                electronicCar.offCar();
-                            else if(choice_car == 3)
+                                electronicCar.offEngine();
+
+                            else if(choice_car == 3)    //일반 자전거만 시동 옵션 불가
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
+
                             else
-                                electronicCircle.offCar();
+                                electronicCircle.offEngine();
+
                             break;
 
                             //앞으로 가기
                         case 3:
                             if(choice_car == 1)
                                 nomalCar.goMove();
+
                             else if(choice_car == 2)
                                 electronicCar.goMove();
+
                             else if(choice_car == 3)
                                 circle.goMove();
+
                             else
                                 electronicCircle.goMove();
+
                             break;
 
                             //뒤로 가기
                         case 4:
                             if(choice_car == 1)
                                 nomalCar.backMove();
+
                             else if(choice_car == 2)
                                 electronicCar.backMove();
+
                             else if(choice_car == 3)
                                 circle.backMove();
+
                             else
                                 electronicCircle.backMove();
+
                             break;
 
                             //자동 운전
                         case 5 :
                             if(choice_car != 2)
                                 System.out.println("자동 운전 옵션은 전기차만 가능합니다.");
+
                             else
                                 electronicCar.autoMove();
+
                             break;
 
                             //자동 주차
                         case 6 :
                             if(choice_car != 2)
                                 System.out.println("자동 주차 옵션은 전기차만 가능합니다.");
+
                             else
                                 electronicCar.autoParking();
+
                             break;
 
                             //대여자 정보 확인
@@ -227,15 +257,15 @@ public class Main {
                                 cashier.checkMoney(nomalCar.getMax() - electronicCar.getFuel(), electronicCar.getPriceFuel(), electronicCar.getMoney());
                             }
                             else if(choice_car == 3){
-                                cashier.checkMoney(circle.getMoney());
+                                cashier.checkMoney(0, 0, circle.getMoney());      //일반 자전거는 연료(배터리) 사용하지 않기 때문에 연료비와 남은 연료 0으로 설정
                             }
                             else {
                                 cashier.checkMoney(electronicCircle.getMax() - electronicCircle.getFuel(), electronicCircle.getPriceFuel(), electronicCircle.getMoney());
                             }
 
                             while(true) {
-                                money_rent = Integer.parseInt(br.readLine());
-                                int result = cashier.calculate(money_rent);
+                                money_rent = Integer.parseInt(br.readLine());   //사용자가 지불할 돈
+                                int result = cashier.calculate(money_rent);     //총 금액보다 적게 냈는지 확인
 
                                 if(result == 1)
                                     break;
@@ -245,16 +275,16 @@ public class Main {
                         default:
                             System.out.println("보기에 있는 선택지를 골라주세요.");
                     }
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e){  //옵션 숫자가 아닌 것을 입력할 경우
                     System.out.println("\n잘못된 입력입니다.\n");
                 }
             }
         }
     }
 
-    //이름 형식에 숫자가 들어갈 경우 예외처리
+    //이름 형식에 한글, 알파벳만 들어가도록 설정
     public static void validateString(String input) throws NotStringException {
-        if (input.matches(".*\\d.*")) { // 숫자가 하나라도 포함되면 예외 발생
+        if (!input.matches("[a-zA-Z가-힣]+")) {
             throw new NotStringException("잘못된 입력 형식으로 이전 단계로 돌아갑니다.");
         }
     }
