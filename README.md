@@ -33,4 +33,4 @@
 
 
 ## 클래스 다이어그램
-<img src="https://github.com/user-attachments/assets/fb7d5cbb-62c7-4f92-b38f-ec2b4fbae1ac" width="50%">
+<img src="https://github.com/user-attachments/assets/4453b165-8e9a-47cc-bf29-e76d17d23127" width="80%">
