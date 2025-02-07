@@ -1,4 +1,4 @@
-package domain;
+package domain.User;
 
 public class Customer {
 
@@ -27,13 +27,13 @@ public class Customer {
 
 
     //대여자 정보 확인
-    public void show() {
+    public void show(String product) {
         System.out.println("====================================");
         System.out.println("대여자 정보");
         System.out.println("대여자 이름 : " + getName());
         System.out.println("대여자 연령 : " + getAge());
         System.out.println("대여 시간 : " + getTime());
-        System.out.println("대여 제품 : " + getProduct());
+        System.out.println("대여 제품 : " + product);
         System.out.println("====================================");
     }
 }

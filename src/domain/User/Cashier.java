@@ -1,4 +1,4 @@
-package domain;
+package domain.User;
 
 public class Cashier {
 
@@ -19,6 +19,16 @@ public class Cashier {
     public int getTotalRentMoney() { return totalRentMoney; }
 
     public int getRemainFuelMoney() { return remainFuelMoney; }
+
+    //총 금액 확인
+    public void checkMoney(int money) {
+        System.out.println("\n총 " + customer.getTime() + "시간을 대여하셨습니다.");
+        System.out.println("시간 당 " + money + "원 입니다.");
+        setTotalRentMoney(money*customer.getTime());
+        System.out.println("대여 요금은 " + getTotalRentMoney() + "원 입니다.");
+        System.out.println("총 요금은 " + (getTotalRentMoney() + getRemainFuelMoney()) + "원 입니다.");
+        System.out.print("지불하실 요금을 입력해주세요 : ");
+    }
 
     //총 금액 확인
     public void checkMoney(int fuel, int priceFuel, int money) {
