@@ -1,7 +1,7 @@
 package domain.Choice;
 
 public enum Choice_Vehicle {
-    GASLINECAR(1), ELECTRONICCAR(2), NOMALCIRCLE(3), ELECTRONICCIRCLE(4);
+    GASOLINECAR(1), ELECTRONICCAR(2), NOMALCIRCLE(3), ELECTRONICCIRCLE(4);
 
     private int choice;
 

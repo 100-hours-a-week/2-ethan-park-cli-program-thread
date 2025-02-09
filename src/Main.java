@@ -3,7 +3,6 @@ import domain.Choice.Choice_Behavior;
 import domain.Choice.Choice_Vehicle;
 import domain.Motorized.ElectronicCar;
 import domain.Motorized.GasolineCar;
-import domain.AutoMove;
 import domain.Motorized.ElectronicCircle;
 import domain.NonMotorized.NormalCircle;
 import domain.User.Cashier;
@@ -12,7 +11,7 @@ import domain.User.Customer;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         int choice_car; //차 선택
         int fuel;   //충전할 양
@@ -29,7 +28,6 @@ public class Main {
         NormalCircle circle = new NormalCircle();
         ElectronicCircle electronicCircle = new ElectronicCircle();
 
-        AutoMove autoMove = new AutoMove();
         Validator validator = new Validator();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -72,7 +70,7 @@ public class Main {
 
                 if(choiceVehicle.name().equals("GASOLINECAR") || choiceVehicle.name().equals("ELECTRONICCAR"))
                         //20세 미만은 자전거 종류만 대여 가능
-                        if (validator.checkRentCarAge(age))
+                        if (!validator.checkRentCarAge(age))
                             continue;
 
                 //대여 시간
@@ -145,97 +143,101 @@ public class Main {
 
                     //주유 선택
                     case "CHARGE" :
-                        if(product.equals("GASOLINECAR")) {
-                            //주유할 연료가 남아있을 때만 주유
-                            if (nomalCar.checkFuel() == 1) {
-                                fuel = Integer.parseInt(br.readLine());
-                                nomalCar.chargeFuel(fuel);
-                            }
-                        }
-                        else if(product.equals("ELECTRONICCAR")) {
-                            //주유할 연료가 남아있을 때만 충전
-                            if (electronicCar.checkFuel() == 1) {
-                                fuel = Integer.parseInt(br.readLine());
-                                electronicCar.chargeFuel(fuel);
-                            }
-                        }
-                        else if(product.equals("NOMALCIRCLE")) {   //일반 자전거만 주유 불가
-                            System.out.println("일반 자전거는 주유를 하지 못합니다.");
-                        }
-                        else if(product.equals("ELECTRONICCIRCLE")) {
-                            //주유할 연료가 남아있을 때만 충전
-                            if (electronicCircle.checkFuel() == 1) {
-                                fuel = Integer.parseInt(br.readLine());
-                                electronicCircle.chargeFuel(fuel);
-                            }
+                        switch (product){
+                            case "GASOLINECAR" :
+                                if (nomalCar.checkFuel() == 1) {
+                                    fuel = Integer.parseInt(br.readLine());
+                                    nomalCar.chargeFuel(fuel);
+                                }
+                                break;
+                            case "ELECTRONICCAR" :
+                                if (electronicCar.checkFuel() == 1) {
+                                    fuel = Integer.parseInt(br.readLine());
+                                    electronicCar.chargeFuel(fuel);
+                                }
+                                break;
+                            case "NOMALCIRCLE" :
+                                System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
+                                break;
+                            case "ELECTRONICCIRCLE" :
+                                if (electronicCircle.checkFuel() == 1) {
+                                    fuel = Integer.parseInt(br.readLine());
+                                    electronicCircle.chargeFuel(fuel);
+                                }
+                                break;
                         }
                         break;
 
                         //시동 켜기 선택
                     case "ON" :
-
-                        if(product.equals("GASOLINECAR"))
-                            nomalCar.onEngine();
-
-                        else if(product.equals("ELECTRONICCAR"))
-                            electronicCar.onEngine();
-
-                        else if(product.equals("NOMALCIRCLE"))    //일반 자전거만 시동 옵션 불가
-                            System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
-
-                        else if(product.equals("ELECTRONICCIRCLE"))
-                            electronicCircle.onEngine();
-
+                        switch (product){
+                            case "GASOLINECAR" :
+                                nomalCar.onEngine();
+                                break;
+                            case "ELECTRONICCAR" :
+                                electronicCar.onEngine();
+                                break;
+                            case "NOMALCIRCLE" :
+                                System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
+                                break;
+                            case "ELECTRONICCIRCLE" :
+                                electronicCircle.onEngine();
+                                break;
+                        }
                         break;
 
                     //시동 끄기
                     case "OFF" :
-                        if(product.equals("GASOLINECAR"))
-                            nomalCar.offEngine();
-
-                        else if(product.equals("ELECTRONICCAR"))
-                            electronicCar.offEngine();
-
-                        else if(product.equals("NOMALCIRCLE"))    //일반 자전거만 시동 옵션 불가
-                            System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
-
-                        else if(product.equals("ELECTRONICCIRCLE"))
-                            electronicCircle.offEngine();
-
+                        switch (product){
+                            case "GASOLINECAR" :
+                                nomalCar.offEngine();
+                                break;
+                            case "ELECTRONICCAR" :
+                                electronicCar.offEngine();
+                                break;
+                            case "NOMALCIRCLE" :
+                                System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
+                                break;
+                            case "ELECTRONICCIRCLE" :
+                                electronicCircle.offEngine();
+                                break;
+                        }
                         break;
 
                         //앞으로 가기
                     case "GO" :
-                        if(product.equals("GASOLINECAR")) {
-                            nomalCar.goMove();
-
+                        switch (product){
+                            case "GASOLINECAR" :
+                                nomalCar.goMove();
+                                break;
+                            case "ELECTRONICCAR" :
+                                electronicCar.goMove();
+                                break;
+                            case "NOMALCIRCLE" :
+                                circle.goMove();
+                                break;
+                            case "ELECTRONICCIRCLE" :
+                                electronicCircle.goMove();
+                                break;
                         }
-
-                        else if(product.equals("ELECTRONICCAR"))
-                            electronicCar.goMove();
-
-                        else if(product.equals("NOMALCIRCLE"))
-                            circle.goMove();
-
-                        else if(product.equals("ELECTRONICCIRCLE"))
-                            electronicCircle.goMove();
-
                         break;
 
                         //뒤로 가기
                     case "BACK" :
-                        if(product.equals("GASOLINECAR"))
-                            nomalCar.backMove();
-
-                        else if(product.equals("ELECTRONICCAR"))
-                            electronicCar.backMove();
-
-                        else if(product.equals("NOMALCIRCLE"))
-                            circle.backMove();
-
-                        else if(product.equals("ELECTRONICCIRCLE"))
-                            electronicCircle.backMove();
-
+                        switch (product){
+                            case "GASOLINECAR" :
+                                nomalCar.backMove();
+                                break;
+                            case "ELECTRONICCAR" :
+                                electronicCar.backMove();
+                                break;
+                            case "NOMALCIRCLE" :
+                                circle.backMove();
+                                break;
+                            case "ELECTRONICCIRCLE" :
+                                electronicCircle.backMove();
+                                break;
+                        }
                         break;
 
                         //자동 운전
@@ -265,17 +267,19 @@ public class Main {
 
                         //반납
                     case "RETURN" :
-                        if(product.equals("GASOLINECAR")) {
-                            cashier.checkMoney(nomalCar.getMax() - nomalCar.getFuel(), nomalCar.getPriceFuel(), nomalCar.getMoney());
-                        }
-                        else if(product.equals("ELECTRONICCAR")){
-                            cashier.checkMoney(nomalCar.getMax() - electronicCar.getFuel(), electronicCar.getPriceFuel(), electronicCar.getMoney());
-                        }
-                        else if(product.equals("NOMALCIRCLE")){
-                            cashier.checkMoney(circle.getMoney());      //일반 자전거는 연료(배터리) 사용하지 않기 때문에 연료비와 남은 연료 0으로 설정
-                        }
-                        else if(product.equals("ELECTRONICCIRCLE")) {
-                            cashier.checkMoney(electronicCircle.getMax() - electronicCircle.getFuel(), electronicCircle.getPriceFuel(), electronicCircle.getMoney());
+                        switch (product){
+                            case "GASOLINECAR" :
+                                cashier.checkMoney(nomalCar.getMax() - nomalCar.getFuel(), nomalCar.getPriceFuel(), nomalCar.getMoney());
+                                break;
+                            case "ELECTRONICCAR" :
+                                cashier.checkMoney(nomalCar.getMax() - electronicCar.getFuel(), electronicCar.getPriceFuel(), electronicCar.getMoney());
+                                break;
+                            case "NOMALCIRCLE" :
+                                cashier.checkMoney(circle.getMoney());
+                                break;
+                            case "ELECTRONICCIRCLE" :
+                                cashier.checkMoney(electronicCircle.getMax() - electronicCircle.getFuel(), electronicCircle.getPriceFuel(), electronicCircle.getMoney());
+                                break;
                         }
 
                         while(true) {

@@ -10,8 +10,8 @@ public class MotorizedVehicle extends Vehicle {
     private int useFuel;
     private boolean engine = false;
 
-    public MotorizedVehicle(int priceFuel, int useFuel, int money) {
-        super(money);
+    public MotorizedVehicle(int priceFuel, int useFuel, int money, int move_distance) {
+        super(money, move_distance);
         this.fuel = 100;
         this.priceFuel = priceFuel;
         this.useFuel = useFuel;
@@ -30,42 +30,6 @@ public class MotorizedVehicle extends Vehicle {
 
     public boolean getEngine() {
         return engine;
-    }
-
-    public void goMove() {
-        if(getEngine()) {
-            System.out.println("\n앞으로 이동합니다.");
-            if (getFuel() > 0) {
-
-                setFuel(getFuel()-getUseFuel());
-                System.out.println("연료(배터리)가 " + getUseFuel() + "만큼 감소 했습니다.");
-                System.out.println("현재 연료(배터리) : " + getFuel() + "\n");
-            }
-            else
-                lackFuel();
-        }
-        else
-            warning();
-    }
-
-    //뒤로 이동
-    public void backMove() {
-        if(getEngine()) {
-            System.out.println("\n뒤로 이동합니다.");
-            if (getFuel() > 0) {
-                setFuel(getFuel() - getUseFuel());
-                System.out.println("연료(배터리)가 " + getUseFuel() + "만큼 감소 했습니다.");
-                System.out.println("현재 연료(배터리) : " + getFuel() + "\n");
-            }
-            else
-                lackFuel();
-        }
-        else
-            warning();
-    }
-
-    public void lackFuel() {
-        System.out.println("\n연료가 충분하지 않습니다.\n");
     }
 
     public void onEngine() {
