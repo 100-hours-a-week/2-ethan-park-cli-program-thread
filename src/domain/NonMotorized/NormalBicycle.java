@@ -2,10 +2,10 @@ package domain.NonMotorized;
 
 import java.util.Scanner;
 
-public class NormalCircle extends NonMotorizedVehicle implements Move {
+public class NormalBicycle extends NonMotorizedVehicle implements Move {
 
     //일반 자전거는 연료 부분 0으로 설정, 대여비 2000원
-    public NormalCircle() { super(2000, 1); }
+    public NormalBicycle() { super(2000, 1); }
 
     @Override
     public void goMove() {

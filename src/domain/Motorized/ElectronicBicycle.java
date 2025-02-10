@@ -2,9 +2,9 @@ package domain.Motorized;
 
 import java.util.Scanner;
 
-public class ElectronicCircle extends MotorizedVehicle implements ChargeFuel, Move {
+public class ElectronicBicycle extends MotorizedVehicle implements ChargeFuel, Move {
 
-    public ElectronicCircle() {
+    public ElectronicBicycle() {
         super(200, 1, 4000, 3);
     }
 

@@ -3,8 +3,8 @@ import domain.Choice.Choice_Behavior;
 import domain.Choice.Choice_Vehicle;
 import domain.Motorized.ElectronicCar;
 import domain.Motorized.GasolineCar;
-import domain.Motorized.ElectronicCircle;
-import domain.NonMotorized.NormalCircle;
+import domain.Motorized.ElectronicBicycle;
+import domain.NonMotorized.NormalBicycle;
 import domain.User.Cashier;
 import domain.User.Customer;
 
@@ -25,8 +25,8 @@ public class Main {
 
         GasolineCar nomalCar = new GasolineCar();
         ElectronicCar electronicCar = new ElectronicCar();
-        NormalCircle circle = new NormalCircle();
-        ElectronicCircle electronicCircle = new ElectronicCircle();
+        NormalBicycle circle = new NormalBicycle();
+        ElectronicBicycle electronicBicycle = new ElectronicBicycle();
 
         Validator validator = new Validator();
 
@@ -160,9 +160,9 @@ public class Main {
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
                             case "ELECTRONICCIRCLE" :
-                                if (electronicCircle.checkFuel() == 1) {
+                                if (electronicBicycle.checkFuel() == 1) {
                                     fuel = Integer.parseInt(br.readLine());
-                                    electronicCircle.chargeFuel(fuel);
+                                    electronicBicycle.chargeFuel(fuel);
                                 }
                                 break;
                         }
@@ -181,7 +181,7 @@ public class Main {
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
                             case "ELECTRONICCIRCLE" :
-                                electronicCircle.onEngine();
+                                electronicBicycle.onEngine();
                                 break;
                         }
                         break;
@@ -199,7 +199,7 @@ public class Main {
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
                             case "ELECTRONICCIRCLE" :
-                                electronicCircle.offEngine();
+                                electronicBicycle.offEngine();
                                 break;
                         }
                         break;
@@ -217,7 +217,7 @@ public class Main {
                                 circle.goMove();
                                 break;
                             case "ELECTRONICCIRCLE" :
-                                electronicCircle.goMove();
+                                electronicBicycle.goMove();
                                 break;
                         }
                         break;
@@ -235,7 +235,7 @@ public class Main {
                                 circle.backMove();
                                 break;
                             case "ELECTRONICCIRCLE" :
-                                electronicCircle.backMove();
+                                electronicBicycle.backMove();
                                 break;
                         }
                         break;
@@ -278,7 +278,7 @@ public class Main {
                                 cashier.checkMoney(circle.getMoney());
                                 break;
                             case "ELECTRONICCIRCLE" :
-                                cashier.checkMoney(electronicCircle.getMax() - electronicCircle.getFuel(), electronicCircle.getPriceFuel(), electronicCircle.getMoney());
+                                cashier.checkMoney(electronicBicycle.getMax() - electronicBicycle.getFuel(), electronicBicycle.getPriceFuel(), electronicBicycle.getMoney());
                                 break;
                         }
 

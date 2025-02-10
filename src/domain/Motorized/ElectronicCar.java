@@ -77,11 +77,22 @@ public class ElectronicCar extends MotorizedVehicle implements ChargeFuel, Move 
     }
 
     public int autoMove() {
+        int beforeFuel = getFuel();
+
         if(getEngine()) {
             if(getFuel() > 0) {
                 System.out.println("\n자동 운전을 선택하셨습니다.");
-                System.out.println("배터리가 3만큼 감소합니다.\n");
-                setFuel(getFuel() - 3);
+
+                AutoMove autoMove = new AutoMove(this);
+                autoMove.start();
+
+                try{
+                    autoMove.join();
+                } catch (InterruptedException e){
+                }
+
+                inforDistance(beforeFuel);
+
                 return 1;
             }
             else
@@ -109,7 +120,8 @@ public class ElectronicCar extends MotorizedVehicle implements ChargeFuel, Move 
 
                 try {
                     autoParking.join();
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                }
 
                 return 1;
             }

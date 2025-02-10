@@ -1,6 +1,6 @@
 package domain.Motorized;
 
-public class MoveGasoline extends Thread{
+public class MoveGasoline extends Thread implements MoveThread{
 
     private MotorizedVehicle motorizedVehicle;
 
@@ -18,12 +18,12 @@ public class MoveGasoline extends Thread{
 
                 if(motorizedVehicle.getFuel() == 0){
                     sleep(1000);
-                    System.out.println("연료가 부족하여 주행이 불가능합니다.");
-                    System.out.println("주유를 진행하세요.");
-                    System.out.println("이어서 진행하려면 엔터를 눌러주세요.");
+                    warningShow();
+                    interrupt();
                     return;
                 }
             } catch (InterruptedException e) {
+                //arrivedShow();
                 break;
             }
         }
@@ -31,10 +31,12 @@ public class MoveGasoline extends Thread{
 
     }
 
+    @Override
     public synchronized void useFuel() {
         motorizedVehicle.setFuel(motorizedVehicle.getFuel() - motorizedVehicle.getUseFuel());
     }
 
+    @Override
     public synchronized int increaseDistance(int meter) {
         meter+=motorizedVehicle.getMove_oneDistnace();
         motorizedVehicle.setMove_totalDistance(motorizedVehicle.getMove_oneDistnace() + motorizedVehicle.getMove_totalDistance());
@@ -42,4 +44,13 @@ public class MoveGasoline extends Thread{
 
         return meter;
     }
+
+    @Override
+    public void warningShow() {
+        System.out.println("연료가 부족하여 주행이 불가능합니다.");
+        System.out.println("금일 총 이동 거리 : " + motorizedVehicle.getMove_totalDistance());
+        System.out.println("주유를 진행하세요.");
+        System.out.println("이어서 진행하려면 엔터를 눌러주세요.");
+    }
+
 }
