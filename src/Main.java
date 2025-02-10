@@ -1,9 +1,7 @@
 import domain.*;
 import domain.Choice.Choice_Behavior;
 import domain.Choice.Choice_Vehicle;
-import domain.Motorized.ElectronicCar;
-import domain.Motorized.GasolineCar;
-import domain.Motorized.ElectronicBicycle;
+import domain.Motorized.*;
 import domain.NonMotorized.NormalBicycle;
 import domain.User.Cashier;
 import domain.User.Customer;
@@ -27,7 +25,6 @@ public class Main {
         ElectronicCar electronicCar = new ElectronicCar();
         NormalBicycle normalBicycle = new NormalBicycle();
         ElectronicBicycle electronicBicycle = new ElectronicBicycle();
-
         Validator validator = new Validator();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -143,26 +140,73 @@ public class Main {
 
                     //주유 선택
                     case "CHARGE" :
+                        //주유/충전 계산할 클래스 객체 생성
+                        ChargeGasoline chargeGasoline;
+                        ChargeElectronic chargeElectronic;
+
                         switch (product){
                             case "GASOLINECAR" :
-                                if (nomalCar.checkFuel() == 1) {
+                                chargeGasoline = new ChargeGasoline(nomalCar);
+                                if (!chargeGasoline.checkFuel()) {
                                     fuel = Integer.parseInt(br.readLine());
-                                    nomalCar.chargeFuel(fuel);
+
+                                    while(true) {
+                                        if(validator.checkNumNegative(fuel))
+                                            break;
+                                    }
+
+                                    chargeGasoline.calculateFuel(fuel);
+
+                                    while(true) {
+                                        int chargeMoney = Integer.parseInt(br.readLine());
+
+                                        if(chargeGasoline.calculateMoney(chargeMoney))
+                                            break;
+                                    }
+
                                 }
                                 break;
                             case "ELECTRONICCAR" :
-                                if (electronicCar.checkFuel() == 1) {
+                                chargeElectronic = new ChargeElectronic(electronicCar);
+                                if (!chargeElectronic.checkFuel()) {
                                     fuel = Integer.parseInt(br.readLine());
-                                    electronicCar.chargeFuel(fuel);
+
+                                    while(true) {
+                                        if(validator.checkNumNegative(fuel))
+                                            break;
+                                    }
+
+                                    chargeElectronic.calculateFuel(fuel);
+
+                                    while(true) {
+                                        int chargeMoney = Integer.parseInt(br.readLine());
+
+                                        if(chargeElectronic.calculateMoney(chargeMoney))
+                                            break;
+                                    }
                                 }
                                 break;
                             case "NOMALCIRCLE" :
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
                             case "ELECTRONICCIRCLE" :
-                                if (electronicBicycle.checkFuel() == 1) {
+                                chargeElectronic = new ChargeElectronic(electronicBicycle);
+                                if (!chargeElectronic.checkFuel()) {
                                     fuel = Integer.parseInt(br.readLine());
-                                    electronicBicycle.chargeFuel(fuel);
+
+                                    while(true) {
+                                        if(validator.checkNumNegative(fuel))
+                                            break;
+                                    }
+
+                                    chargeElectronic.calculateFuel(fuel);
+
+                                    while(true) {
+                                        int chargeMoney = Integer.parseInt(br.readLine());
+
+                                        if(chargeElectronic.calculateMoney(chargeMoney))
+                                            break;
+                                    }
                                 }
                                 break;
                         }

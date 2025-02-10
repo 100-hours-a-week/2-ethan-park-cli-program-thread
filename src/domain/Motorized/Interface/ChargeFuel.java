@@ -2,8 +2,9 @@ package domain.Motorized.Interface;
 
 public interface ChargeFuel {
 
-    public int checkFuel();
+    public boolean checkFuel();
 
-    public void chargeFuel(int fuel);
+    public void calculateFuel(int fuel);
 
+    public boolean calculateMoney(int money);
 }
