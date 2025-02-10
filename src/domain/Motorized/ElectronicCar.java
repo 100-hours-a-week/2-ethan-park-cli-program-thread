@@ -1,5 +1,12 @@
 package domain.Motorized;
 
+import domain.Motorized.Interface.ChargeFuel;
+import domain.Motorized.Interface.Move;
+import domain.Motorized.thread.AutoMove;
+import domain.Motorized.thread.AutoParking;
+import domain.Motorized.thread.ChargePercent;
+import domain.Motorized.thread.MoveElectronic;
+
 import java.util.Scanner;
 
 public class ElectronicCar extends MotorizedVehicle implements ChargeFuel, Move {

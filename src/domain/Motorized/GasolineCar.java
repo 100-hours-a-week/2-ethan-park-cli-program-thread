@@ -1,5 +1,10 @@
 package domain.Motorized;
 
+import domain.Motorized.Interface.ChargeFuel;
+import domain.Motorized.Interface.Move;
+import domain.Motorized.thread.ChargePercent;
+import domain.Motorized.thread.MoveGasoline;
+
 import java.util.Scanner;
 
 public class GasolineCar extends MotorizedVehicle implements ChargeFuel, Move {

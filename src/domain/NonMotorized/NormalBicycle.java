@@ -1,5 +1,8 @@
 package domain.NonMotorized;
 
+import domain.NonMotorized.Interface.Move;
+import domain.NonMotorized.thread.MoveNonEngine;
+
 import java.util.Scanner;
 
 public class NormalBicycle extends NonMotorizedVehicle implements Move {

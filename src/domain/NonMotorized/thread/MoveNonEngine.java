@@ -1,4 +1,6 @@
-package domain.NonMotorized;
+package domain.NonMotorized.thread;
+
+import domain.NonMotorized.NonMotorizedVehicle;
 
 public class MoveNonEngine extends Thread{
 

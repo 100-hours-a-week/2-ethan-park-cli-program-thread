@@ -1,16 +1,18 @@
-package domain.Motorized;
+package domain.Motorized.thread;
 
-public class MoveElectronic extends Thread implements MoveThread{
+import domain.Motorized.Interface.MoveThread;
+import domain.Motorized.MotorizedVehicle;
+
+public class MoveGasoline extends Thread implements MoveThread {
 
     private MotorizedVehicle motorizedVehicle;
 
-    public MoveElectronic(MotorizedVehicle motorizedVehicle) {
+    public MoveGasoline(MotorizedVehicle motorizedVehicle) {
         this.motorizedVehicle = motorizedVehicle;
     }
 
     public void run() {
         int meter = 0;
-
         while(!Thread.currentThread().isInterrupted()){
             try {
                 sleep(1000);
@@ -21,7 +23,6 @@ public class MoveElectronic extends Thread implements MoveThread{
                     sleep(1000);
                     warningShow();
                     interrupt();
-                    return;
                 }
             } catch (InterruptedException e) {
                 break;
@@ -47,9 +48,9 @@ public class MoveElectronic extends Thread implements MoveThread{
 
     @Override
     public void warningShow() {
-        System.out.println("배터리가 부족하여 자동 주행이 종료됩니다.");
+        System.out.println("연료가 부족하여 주행이 불가능합니다.");
         System.out.println("금일 총 이동 거리 : " + motorizedVehicle.getMove_totalDistance());
-        System.out.println("충전을 진행하세요.");
+        System.out.println("주유를 진행하세요.");
         System.out.println("이어서 진행하려면 엔터를 눌러주세요.");
     }
 

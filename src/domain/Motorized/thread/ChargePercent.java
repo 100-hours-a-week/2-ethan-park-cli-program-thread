@@ -1,12 +1,11 @@
-package domain.Motorized;
+package domain.Motorized.thread;
 
-public class AutoParking extends Thread {
+public class ChargePercent extends Thread {
 
     public void run() {
-        System.out.println("자동 주차를 시작합니다.");
-        int percent = 0;
 
-        System.out.println("주차 진행중..");
+        int percent = 0;
+        System.out.println("주유중.....");
         while(!Thread.currentThread().isInterrupted()){
             try {
                 if(percent == 100)
@@ -16,7 +15,7 @@ public class AutoParking extends Thread {
                 percent+=10;
                 System.out.println("현재 진행도 : " + percent + "%...");
             } catch (InterruptedException e) {
-                System.out.println("자동 주차가 완료되었습니다.");
+                System.out.println("주유가 완료되었습니다.");
                 break;
             }
         }

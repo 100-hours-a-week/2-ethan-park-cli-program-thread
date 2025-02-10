@@ -1,43 +1,19 @@
-package domain.Motorized;
+package domain.Motorized.thread;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import domain.Motorized.Interface.MoveThread;
+import domain.Motorized.MotorizedVehicle;
 
-public class AutoMove extends Thread implements MoveThread{
+public class MoveElectronic extends Thread implements MoveThread {
+
     private MotorizedVehicle motorizedVehicle;
 
-    public AutoMove(MotorizedVehicle motorizedVehicle){
+    public MoveElectronic(MotorizedVehicle motorizedVehicle) {
         this.motorizedVehicle = motorizedVehicle;
     }
 
     public void run() {
-        //자동 운전 구현
-        //자동 운전 진행할 거리 입력 받기
-        //현재 진행 거리 파악
-        //배터리 감소 적용
-
         int meter = 0;
-        int goalDistance;
-        Scanner scanner = new Scanner(System.in);
 
-        while(true) {
-            try {
-                System.out.print("주행할 거리를 입력하세요(50m 단위) : ");
-                goalDistance = scanner.nextInt();
-
-                if (goalDistance % 50 != 0) {
-                    System.out.println("50m 단위로 입력하세요.");
-                    continue;
-                }
-
-                break;
-
-            } catch (InputMismatchException e) {
-                System.out.println("올바른 값을 입력하세요.");
-            }
-        }
-
-        System.out.println("자동 주행을 시작합니다.");
         while(!Thread.currentThread().isInterrupted()){
             try {
                 sleep(1000);
@@ -47,19 +23,13 @@ public class AutoMove extends Thread implements MoveThread{
                 if(motorizedVehicle.getFuel() == 0){
                     sleep(1000);
                     warningShow();
-                    return;
-                }
-
-                if(goalDistance == meter){
-                    sleep(1000);
-                    System.out.println("목적지에 도착했습니다.");
                     interrupt();
                 }
-
             } catch (InterruptedException e) {
                 break;
             }
         }
+
 
     }
 

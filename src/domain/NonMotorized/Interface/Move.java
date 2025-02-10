@@ -1,4 +1,4 @@
-package domain.NonMotorized;
+package domain.NonMotorized.Interface;
 
 public interface Move {
 

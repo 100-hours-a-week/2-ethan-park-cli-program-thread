@@ -11,7 +11,7 @@ import domain.User.Customer;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
 
         int choice_car; //차 선택
         int fuel;   //충전할 양
@@ -25,7 +25,7 @@ public class Main {
 
         GasolineCar nomalCar = new GasolineCar();
         ElectronicCar electronicCar = new ElectronicCar();
-        NormalBicycle circle = new NormalBicycle();
+        NormalBicycle normalBicycle = new NormalBicycle();
         ElectronicBicycle electronicBicycle = new ElectronicBicycle();
 
         Validator validator = new Validator();
@@ -110,7 +110,7 @@ public class Main {
 
             System.out.println("====================================");
             System.out.println("무엇을 하겠습니까?");
-            System.out.println("주유 : 0");
+            System.out.println("주유/충전 : 0");
             System.out.println("시동 켜기(자동차, 전기자전거만 가능) : 1");
             System.out.println("시동 끄기(자동차, 전기자전거만 가능) : 2");
             System.out.println("앞으로 이동 : 3");
@@ -214,7 +214,7 @@ public class Main {
                                 electronicCar.goMove();
                                 break;
                             case "NOMALCIRCLE" :
-                                circle.goMove();
+                                normalBicycle.goMove();
                                 break;
                             case "ELECTRONICCIRCLE" :
                                 electronicBicycle.goMove();
@@ -232,7 +232,7 @@ public class Main {
                                 electronicCar.backMove();
                                 break;
                             case "NOMALCIRCLE" :
-                                circle.backMove();
+                                normalBicycle.backMove();
                                 break;
                             case "ELECTRONICCIRCLE" :
                                 electronicBicycle.backMove();
@@ -275,7 +275,7 @@ public class Main {
                                 cashier.checkMoney(nomalCar.getMax() - electronicCar.getFuel(), electronicCar.getPriceFuel(), electronicCar.getMoney());
                                 break;
                             case "NOMALCIRCLE" :
-                                cashier.checkMoney(circle.getMoney());
+                                cashier.checkMoney(normalBicycle.getMoney());
                                 break;
                             case "ELECTRONICCIRCLE" :
                                 cashier.checkMoney(electronicBicycle.getMax() - electronicBicycle.getFuel(), electronicBicycle.getPriceFuel(), electronicBicycle.getMoney());

@@ -1,4 +1,4 @@
-package domain.Motorized;
+package domain.Motorized.Interface;
 
 public interface MoveThread {
 
