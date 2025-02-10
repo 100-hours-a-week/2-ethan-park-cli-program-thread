@@ -38,7 +38,8 @@ public class ChargeElectronic implements ChargeFuel {
         }
         else {
             System.out.println("\n충전할 배터리 : " + fuel + "%");
-            System.out.println("퍼센트당 " + motorizedVehicle.getPriceFuel() + "원, 총 " + (fuel * motorizedVehicle.getPriceFuel()) + "원 입니다.");
+            totalMoney = fuel * motorizedVehicle.getPriceFuel();
+            System.out.println("퍼센트당 " + motorizedVehicle.getPriceFuel() + "원, 총 " + totalMoney + "원 입니다.");
             motorizedVehicle.setFuel(motorizedVehicle.getFuel() + fuel);
         }
 

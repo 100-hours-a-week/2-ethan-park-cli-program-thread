@@ -38,7 +38,8 @@ public class ChargeGasoline implements ChargeFuel {
         }
         else {
             System.out.println("\n주유할 연료 : " + fuel + "L");
-            System.out.println("리터당 " + motorizedVehicle.getPriceFuel() + "원, 총 " + (fuel * motorizedVehicle.getPriceFuel()) + "원 입니다.");
+            totalMoney = fuel * motorizedVehicle.getPriceFuel();
+            System.out.println("리터당 " + motorizedVehicle.getPriceFuel() + "원, 총 " + totalMoney + "원 입니다.");
             motorizedVehicle.setFuel(motorizedVehicle.getFuel() + fuel);
         }
 
