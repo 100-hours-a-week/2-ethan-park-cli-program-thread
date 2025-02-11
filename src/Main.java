@@ -186,10 +186,10 @@ public class Main {
                                     }
                                 }
                                 break;
-                            case "NOMALCIRCLE" :
+                            case "NOMALBYCICLE" :
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
-                            case "ELECTRONICCIRCLE" :
+                            case "ELECTRONICBYCICLE" :
                                 chargeElectronic = new ChargeElectronic(electronicBicycle);
                                 if (!chargeElectronic.checkFuel()) {
                                     fuel = Integer.parseInt(br.readLine());
@@ -221,10 +221,10 @@ public class Main {
                             case "ELECTRONICCAR" :
                                 electronicCar.onEngine();
                                 break;
-                            case "NOMALCIRCLE" :
+                            case "NOMALBYCICLE" :
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
-                            case "ELECTRONICCIRCLE" :
+                            case "ELECTRONICBYCICLE" :
                                 electronicBicycle.onEngine();
                                 break;
                         }
@@ -239,10 +239,10 @@ public class Main {
                             case "ELECTRONICCAR" :
                                 electronicCar.offEngine();
                                 break;
-                            case "NOMALCIRCLE" :
+                            case "NOMALBYCICLE" :
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
-                            case "ELECTRONICCIRCLE" :
+                            case "ELECTRONICBYCICLE" :
                                 electronicBicycle.offEngine();
                                 break;
                         }
@@ -257,10 +257,10 @@ public class Main {
                             case "ELECTRONICCAR" :
                                 electronicCar.goMove();
                                 break;
-                            case "NOMALCIRCLE" :
+                            case "NOMALBYCICLE" :
                                 normalBicycle.goMove();
                                 break;
-                            case "ELECTRONICCIRCLE" :
+                            case "ELECTRONICBYCICLE" :
                                 electronicBicycle.goMove();
                                 break;
                         }
@@ -275,10 +275,10 @@ public class Main {
                             case "ELECTRONICCAR" :
                                 electronicCar.backMove();
                                 break;
-                            case "NOMALCIRCLE" :
+                            case "NOMALBYCICLE" :
                                 normalBicycle.backMove();
                                 break;
-                            case "ELECTRONICCIRCLE" :
+                            case "ELECTRONICBYCICLE" :
                                 electronicBicycle.backMove();
                                 break;
                         }
@@ -318,10 +318,10 @@ public class Main {
                             case "ELECTRONICCAR" :
                                 cashier.checkMoney(nomalCar.getMax() - electronicCar.getFuel(), electronicCar.getPriceFuel(), electronicCar.getMoney());
                                 break;
-                            case "NOMALCIRCLE" :
+                            case "NOMALBYCICLE" :
                                 cashier.checkMoney(normalBicycle.getMoney());
                                 break;
-                            case "ELECTRONICCIRCLE" :
+                            case "ELECTRONICBYCICLE" :
                                 cashier.checkMoney(electronicBicycle.getMax() - electronicBicycle.getFuel(), electronicBicycle.getPriceFuel(), electronicBicycle.getMoney());
                                 break;
                         }

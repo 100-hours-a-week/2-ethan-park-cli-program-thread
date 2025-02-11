@@ -34,12 +34,12 @@ public class MoveElectronic extends Thread implements MoveThread {
     }
 
     @Override
-    public synchronized void useFuel() {
+    public void useFuel() {
         motorizedVehicle.setFuel(motorizedVehicle.getFuel() - motorizedVehicle.getUseFuel());
     }
 
     @Override
-    public synchronized int increaseDistance(int meter) {
+    public int increaseDistance(int meter) {
         meter+=motorizedVehicle.getMove_oneDistnace();
         motorizedVehicle.setMove_totalDistance(motorizedVehicle.getMove_oneDistnace() + motorizedVehicle.getMove_totalDistance());
         System.out.println("현재 이동 거리 : " + meter + "m");

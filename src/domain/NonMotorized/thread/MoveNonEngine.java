@@ -23,7 +23,7 @@ public class MoveNonEngine extends Thread{
         }
     }
 
-    public synchronized int increaseDistance(int meter) {
+    public int increaseDistance(int meter) {
         meter+=nonMotorizedVehicle.getMove_oneDistnace();
         nonMotorizedVehicle.setMove_totalDistance(nonMotorizedVehicle.getMove_oneDistnace() + nonMotorizedVehicle.getMove_totalDistance());
         System.out.println("현재 이동 거리 : " + meter + "m");
