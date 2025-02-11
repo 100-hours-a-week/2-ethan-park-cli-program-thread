@@ -4,7 +4,7 @@ public class Validator {
 
     public boolean checkNumNegative(int num) {
         if(num <= 0){
-            System.out.println("0 또는 음수는 허용되지 않습니다.");
+            System.out.println("0보다 큰 수를 입력하세요.");
             return false;
         }
 

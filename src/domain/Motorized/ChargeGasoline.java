@@ -2,6 +2,10 @@ package domain.Motorized;
 
 import domain.Motorized.Interface.ChargeFuel;
 import domain.Motorized.thread.ChargePercent;
+import domain.Validator;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class ChargeGasoline implements ChargeFuel {
 
@@ -11,6 +15,37 @@ public class ChargeGasoline implements ChargeFuel {
     public ChargeGasoline(MotorizedVehicle motorizedVehicle) {
         this.motorizedVehicle = motorizedVehicle;
         this.totalMoney = 0;
+    }
+
+    @Override
+    public void startFuel() {
+        Validator validator = new Validator();
+        Scanner scanner = new Scanner(System.in);
+
+        if (!checkFuel()) {
+
+            while(true) {
+                try {
+                    int fuel = scanner.nextInt();
+
+                    if(validator.checkNumNegative(fuel)){
+                        calculateFuel(fuel);
+                        break;
+                    }
+
+                } catch (InputMismatchException e){
+                    System.out.println("\n잘못된 입력입니다.\n");
+                }
+
+            }
+        }
+
+        while(true) {
+            int chargeMoney = scanner.nextInt();
+
+            if(calculateMoney(chargeMoney))
+                break;
+        }
     }
 
     @Override

@@ -2,6 +2,9 @@ package domain.Motorized;
 
 import domain.Motorized.Interface.ChargeFuel;
 import domain.Motorized.thread.ChargePercent;
+import domain.Validator;
+
+import java.util.Scanner;
 
 public class ChargeElectronic implements ChargeFuel {
 
@@ -11,6 +14,30 @@ public class ChargeElectronic implements ChargeFuel {
     public ChargeElectronic(MotorizedVehicle motorizedVehicle) {
         this.motorizedVehicle = motorizedVehicle;
         this.totalMoney = 0;
+    }
+
+    @Override
+    public void startFuel() {
+        Validator validator = new Validator();
+        Scanner scanner = new Scanner(System.in);
+
+        if (!checkFuel()) {
+            int fuel = scanner.nextInt();
+
+            while (true) {
+                if (validator.checkNumNegative(fuel))
+                    break;
+            }
+
+            calculateFuel(fuel);
+
+            while (true) {
+                int chargeMoney = scanner.nextInt();
+
+                if (calculateMoney(chargeMoney))
+                    break;
+            }
+        }
     }
 
     @Override
