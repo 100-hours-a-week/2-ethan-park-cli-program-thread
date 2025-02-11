@@ -18,14 +18,13 @@ public class Main {
         int money_rent; //지불할 렌트비
         int age;    //대여하는 사람 나이
         String name;    //대여하는 사람 이름
-        String product;
-
 
         GasolineCar nomalCar = new GasolineCar();
         ElectronicCar electronicCar = new ElectronicCar();
         NormalBicycle normalBicycle = new NormalBicycle();
         ElectronicBicycle electronicBicycle = new ElectronicBicycle();
         Validator validator = new Validator();
+        Choice_Vehicle choiceVehicle;
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -45,7 +44,7 @@ public class Main {
                 choice_car = Integer.parseInt(br.readLine());
 
                 //입력한 번호가 대칭되는 이동수단 매칭
-                Choice_Vehicle choiceVehicle = Choice_Vehicle.fromChoice(choice_car);
+                choiceVehicle = Choice_Vehicle.fromChoice(choice_car);
 
                 //선택지 외 번호 입력할 경우
                 if(choiceVehicle == null){
@@ -57,15 +56,11 @@ public class Main {
                 System.out.print("나이를 입력하세요 : ");
                 age = Integer.parseInt(br.readLine());
 
-                //입력값이 0 또는 음수인지 확인
-                if(!validator.checkNumNegative(age))
+                //입력값이 0 또는 음수인지 확인, 10살 미만인지 확인
+                if(!validator.checkNumNegative(age) || !validator.checkRentCircle(age))
                     continue;
 
-                //10살 미만 제한
-                if(!validator.checkRentCircle(age))
-                    continue;
-
-                if(choiceVehicle.name().equals("GASOLINECAR") || choiceVehicle.name().equals("ELECTRONICCAR"))
+                if(choiceVehicle == Choice_Vehicle.GASOLINECAR || choiceVehicle == Choice_Vehicle.ELECTRONICCAR)
                         //20세 미만은 자전거 종류만 대여 가능
                         if (!validator.checkRentCarAge(age))
                             continue;
@@ -86,11 +81,9 @@ public class Main {
                 if(!validator.checkName(name))
                     continue;
 
-                //이동 수단명 저장
-                product = choiceVehicle.name();
                 break;
 
-            } catch (NumberFormatException e) { //parseInt로 정수형 받기 때문에 문자열 입력하면 예외
+            } catch (NumberFormatException e) {
                 System.out.println("\n잘못된 입력 형식으로 이전 단계로 돌아갑니다.\n");
             }
 
@@ -105,19 +98,7 @@ public class Main {
         //행동 선택
         while(true) {
 
-            System.out.println("====================================");
-            System.out.println("무엇을 하겠습니까?");
-            System.out.println("주유/충전 : 0");
-            System.out.println("시동 켜기(자동차, 전기자전거만 가능) : 1");
-            System.out.println("시동 끄기(자동차, 전기자전거만 가능) : 2");
-            System.out.println("앞으로 이동 : 3");
-            System.out.println("뒤로 이동 : 4");
-            System.out.println("자동 운전(전기차만 가능) : 5");
-            System.out.println("자동 주차(전기차만 가능) : 6");
-            System.out.println("대여 정보 확인 : 7");
-            System.out.println("반납 : 8");
-            System.out.println("====================================");
-            System.out.print("옵션 선택 : ");
+            Choice_Behavior.choiceMenu();
 
             try{
                 choice_behavior = Integer.parseInt(br.readLine());
@@ -133,19 +114,16 @@ public class Main {
                     continue;
                 }
 
-                //Choice_Behavior형을 String형으로 변경
-                String behavior = String.valueOf(choiceBehavior);
-
-                switch (behavior) {
+                switch (choiceBehavior) {
 
                     //주유 선택
-                    case "CHARGE" :
+                    case CHARGE :
                         //주유/충전 계산할 클래스 객체 생성
                         ChargeGasoline chargeGasoline;
                         ChargeElectronic chargeElectronic;
 
-                        switch (product){
-                            case "GASOLINECAR" :
+                        switch (choiceVehicle){
+                            case GASOLINECAR :
                                 chargeGasoline = new ChargeGasoline(nomalCar);
                                 if (!chargeGasoline.checkFuel()) {
                                     fuel = Integer.parseInt(br.readLine());
@@ -166,7 +144,7 @@ public class Main {
 
                                 }
                                 break;
-                            case "ELECTRONICCAR" :
+                            case ELECTRONICCAR :
                                 chargeElectronic = new ChargeElectronic(electronicCar);
                                 if (!chargeElectronic.checkFuel()) {
                                     fuel = Integer.parseInt(br.readLine());
@@ -186,10 +164,10 @@ public class Main {
                                     }
                                 }
                                 break;
-                            case "NOMALBYCICLE" :
+                            case NOMALBYCICLE :
                                 System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
-                            case "ELECTRONICBYCICLE" :
+                            case ELECTRONICBYCICLE :
                                 chargeElectronic = new ChargeElectronic(electronicBicycle);
                                 if (!chargeElectronic.checkFuel()) {
                                     fuel = Integer.parseInt(br.readLine());
@@ -213,80 +191,64 @@ public class Main {
                         break;
 
                         //시동 켜기 선택
-                    case "ON" :
-                        switch (product){
-                            case "GASOLINECAR" :
-                                nomalCar.onEngine();
+                    case ON :
+                        switch (choiceVehicle){
+                            case GASOLINECAR : nomalCar.onEngine();
                                 break;
-                            case "ELECTRONICCAR" :
-                                electronicCar.onEngine();
+                            case ELECTRONICCAR : electronicCar.onEngine();
                                 break;
-                            case "NOMALBYCICLE" :
-                                System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
+                            case NOMALBYCICLE : System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
-                            case "ELECTRONICBYCICLE" :
-                                electronicBicycle.onEngine();
+                            case ELECTRONICBYCICLE : electronicBicycle.onEngine();
                                 break;
                         }
                         break;
 
                     //시동 끄기
-                    case "OFF" :
-                        switch (product){
-                            case "GASOLINECAR" :
-                                nomalCar.offEngine();
+                    case OFF :
+                        switch (choiceVehicle){
+                            case GASOLINECAR : nomalCar.offEngine();
                                 break;
-                            case "ELECTRONICCAR" :
-                                electronicCar.offEngine();
+                            case ELECTRONICCAR : electronicCar.offEngine();
                                 break;
-                            case "NOMALBYCICLE" :
-                                System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
+                            case NOMALBYCICLE : System.out.println("일반 자전거는 사용 불가능한 옵션입니다.");
                                 break;
-                            case "ELECTRONICBYCICLE" :
-                                electronicBicycle.offEngine();
+                            case ELECTRONICBYCICLE : electronicBicycle.offEngine();
                                 break;
                         }
                         break;
 
                         //앞으로 가기
-                    case "GO" :
-                        switch (product){
-                            case "GASOLINECAR" :
-                                nomalCar.goMove();
+                    case GO :
+                        switch (choiceVehicle){
+                            case GASOLINECAR : nomalCar.goMove();
                                 break;
-                            case "ELECTRONICCAR" :
-                                electronicCar.goMove();
+                            case ELECTRONICCAR : electronicCar.goMove();
                                 break;
-                            case "NOMALBYCICLE" :
-                                normalBicycle.goMove();
+                            case NOMALBYCICLE : normalBicycle.goMove();
                                 break;
-                            case "ELECTRONICBYCICLE" :
-                                electronicBicycle.goMove();
+                            case ELECTRONICBYCICLE : electronicBicycle.goMove();
                                 break;
                         }
                         break;
 
                         //뒤로 가기
-                    case "BACK" :
-                        switch (product){
-                            case "GASOLINECAR" :
-                                nomalCar.backMove();
+                    case BACK :
+                        switch (choiceVehicle){
+                            case GASOLINECAR : nomalCar.backMove();
                                 break;
-                            case "ELECTRONICCAR" :
-                                electronicCar.backMove();
+                            case ELECTRONICCAR : electronicCar.backMove();
                                 break;
-                            case "NOMALBYCICLE" :
-                                normalBicycle.backMove();
+                            case NOMALBYCICLE : normalBicycle.backMove();
                                 break;
-                            case "ELECTRONICBYCICLE" :
-                                electronicBicycle.backMove();
+                            case ELECTRONICBYCICLE : electronicBicycle.backMove();
                                 break;
                         }
                         break;
 
                         //자동 운전
-                    case "AUTOMOVE" :
-                        if(!product.equals("ELECTRONICCAR"))
+                    case AUTOMOVE :
+                        if(choiceVehicle != Choice_Vehicle.ELECTRONICCAR)
                             System.out.println("자동 운전 옵션은 전기차만 가능합니다.");
 
                         else
@@ -295,8 +257,8 @@ public class Main {
                         break;
 
                         //자동 주차
-                    case "AUTOPARKING" :
-                        if(!product.equals("ELECTRONICCAR"))
+                    case AUTOPARKING :
+                        if(choiceVehicle != Choice_Vehicle.ELECTRONICCAR)
                             System.out.println("자동 주차 옵션은 전기차만 가능합니다.");
 
                         else
@@ -305,23 +267,23 @@ public class Main {
                         break;
 
                         //대여자 정보 확인
-                    case "SHOWUSER" :
-                        customer.show(product);
+                    case SHOWUSER :
+                        customer.show(choiceVehicle.name());
                         break;
 
                         //반납
-                    case "RETURN" :
-                        switch (product){
-                            case "GASOLINECAR" :
+                    case RETURN :
+                        switch (choiceVehicle){
+                            case GASOLINECAR :
                                 cashier.checkMoney(nomalCar.getMax() - nomalCar.getFuel(), nomalCar.getPriceFuel(), nomalCar.getMoney());
                                 break;
-                            case "ELECTRONICCAR" :
+                            case ELECTRONICCAR :
                                 cashier.checkMoney(nomalCar.getMax() - electronicCar.getFuel(), electronicCar.getPriceFuel(), electronicCar.getMoney());
                                 break;
-                            case "NOMALBYCICLE" :
+                            case NOMALBYCICLE :
                                 cashier.checkMoney(normalBicycle.getMoney());
                                 break;
-                            case "ELECTRONICBYCICLE" :
+                            case ELECTRONICBYCICLE :
                                 cashier.checkMoney(electronicBicycle.getMax() - electronicBicycle.getFuel(), electronicBicycle.getPriceFuel(), electronicBicycle.getMoney());
                                 break;
                         }
